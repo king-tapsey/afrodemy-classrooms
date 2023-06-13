@@ -7,7 +7,7 @@ import zw.co.afrocodemy.afrocodemyclassrooms.forum.dto.ForumQuestionRequest;
 public interface ForumQuestionService {
     ResponseEntity<?> getAll(Pageable pageable);
     ResponseEntity<?> getAllByNetVotes(Pageable pageable);
-    ResponseEntity<?> getById(Long id);
+    ResponseEntity<?> getById(Long id, String username);
     ResponseEntity<?> getQuestionComments(Long questionId);
     ResponseEntity<?> getQuestionAnswers(Long questionId);
     ResponseEntity<?> create(ForumQuestionRequest request);

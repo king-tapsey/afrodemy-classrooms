@@ -13,7 +13,7 @@ import java.util.Objects;
 @Builder
 @ToString
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class ForumUserVotes {
+public abstract class ForumUserVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -25,7 +25,7 @@ public abstract class ForumUserVotes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ForumUserVotes that = (ForumUserVotes) o;
+        ForumUserVote that = (ForumUserVote) o;
 
         if (!id.equals(that.id)) return false;
         if (voteType != that.voteType) return false;

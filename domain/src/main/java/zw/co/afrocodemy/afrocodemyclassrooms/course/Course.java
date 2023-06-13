@@ -1,10 +1,7 @@
 package zw.co.afrocodemy.afrocodemyclassrooms.course;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import zw.co.afrocodemy.afrocodemyclassrooms.BaseEntity;
 import zw.co.afrocodemy.afrocodemyclassrooms.topic.Topic;
 
@@ -18,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Course extends BaseEntity {
     protected ZonedDateTime modifiedDate;
     protected String modifierUsername;

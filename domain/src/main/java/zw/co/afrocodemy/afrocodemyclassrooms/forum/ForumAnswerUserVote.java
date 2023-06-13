@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @ToString
-public class ForumAnswerUserVotes extends ForumUserVotes{
+public class ForumAnswerUserVote extends ForumUserVote {
     @ManyToOne
     protected ForumAnswer answer;
 
@@ -23,7 +23,7 @@ public class ForumAnswerUserVotes extends ForumUserVotes{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        ForumAnswerUserVotes that = (ForumAnswerUserVotes) o;
+        ForumAnswerUserVote that = (ForumAnswerUserVote) o;
 
         return Objects.equals(answer, that.answer);
     }

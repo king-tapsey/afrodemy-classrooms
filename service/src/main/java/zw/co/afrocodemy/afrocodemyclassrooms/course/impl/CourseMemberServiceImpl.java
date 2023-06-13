@@ -3,6 +3,7 @@ package zw.co.afrocodemy.afrocodemyclassrooms.course.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import zw.co.afrocodemy.afrocodemyclassrooms.course.CourseMember;
 import zw.co.afrocodemy.afrocodemyclassrooms.course.CourseMemberProgress;
 import zw.co.afrocodemy.afrocodemyclassrooms.course.CourseMemberRepository;
@@ -12,6 +13,7 @@ import zw.co.afrocodemy.afrocodemyclassrooms.exceptions.InvalidRequestException;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
 public class CourseMemberServiceImpl implements CourseMemberService {
     private final CourseMemberRepository courseMemberRepository;

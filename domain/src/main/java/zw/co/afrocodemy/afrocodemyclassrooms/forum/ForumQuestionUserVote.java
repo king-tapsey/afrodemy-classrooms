@@ -13,9 +13,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @ToString
-public class ForumQuestionVotes extends ForumVotes{
+public class ForumQuestionUserVote extends ForumUserVote {
     @ManyToOne
-    protected ForumQuestion forumQuestion;
+    protected ForumQuestion question;
 
     @Override
     public boolean equals(Object o) {
@@ -23,15 +23,15 @@ public class ForumQuestionVotes extends ForumVotes{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        ForumQuestionVotes that = (ForumQuestionVotes) o;
+        ForumQuestionUserVote that = (ForumQuestionUserVote) o;
 
-        return Objects.equals(forumQuestion, that.forumQuestion);
+        return Objects.equals(question, that.question);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (forumQuestion != null ? forumQuestion.hashCode() : 0);
+        result = 31 * result + (question != null ? question.hashCode() : 0);
         return result;
     }
 }
