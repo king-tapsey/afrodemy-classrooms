@@ -1,5 +1,6 @@
 package zw.co.afrocodemy.afrocodemyclassrooms.forum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class ForumAnswer extends BaseEntity {
     protected ZonedDateTime modifiedDate;
     protected String text;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     protected ForumQuestion question;
 
     @Override

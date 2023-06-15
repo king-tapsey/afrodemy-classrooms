@@ -11,8 +11,7 @@ import zw.co.afrocodemy.afrocodemyclassrooms.course.dto.CourseUpdateRequest;
 import zw.co.afrocodemy.afrocodemyclassrooms.exceptions.CourseNotFoundException;
 import zw.co.afrocodemy.afrocodemyclassrooms.exceptions.InvalidRequestException;
 import zw.co.afrocodemy.afrocodemyclassrooms.forum.*;
-import zw.co.afrocodemy.afrocodemyclassrooms.forum.dto.ForumRequest;
-import zw.co.afrocodemy.afrocodemyclassrooms.forum.dto.ForumVoteRequest;
+import zw.co.afrocodemy.afrocodemyclassrooms.forum.dto.*;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
@@ -28,6 +27,9 @@ public class DtoMapper {
     private final CourseForumRepository courseForumRepository;
     private final ForumAnswerRepository forumAnswerRepository;
     private final ForumQuestionRepository forumQuestionRepository;
+    private final ForumAnswerCommentRepository forumAnswerCommentRepository;
+    private final ForumQuestionCommentRepository forumQuestionCommentRepository;
+    private final ForumCommentRepository forumCommentRepository;
 
     public MultipleChoiceAssessmentQuestion createRequestToMultipleChoiceQuestion(final AssessmentQuestionCreationRequest request){
         MultipleChoiceAssessmentQuestion question = new MultipleChoiceAssessmentQuestion();
@@ -173,4 +175,89 @@ public class DtoMapper {
 
         return vote;
     }
+    public ForumQuestion requestToForumQuestionCreate(final ForumQuestionRequest request){
+        final ForumQuestion question = new ForumQuestion();
+
+        question.setCreatedDate(ZonedDateTime.now());
+        question.setCreatorUsername(request.getAssociatedUsername());
+        question.setText(request.getText());
+
+        return question;
+    }
+    public ForumQuestion requestToForumQuestionUpdate(final ForumQuestionRequest request){
+        final ForumQuestion question = forumQuestionRepository.findById(request.getId()).orElse(null);
+        if(question == null){
+            throw new InvalidRequestException("Could not find ForumQuestion with id: " + request.getId());
+        }
+
+        question.setModifiedDate(ZonedDateTime.now());
+        question.setText(request.getText());
+
+        return question;
+    }
+    public ForumAnswer requestToForumAnswerCreate(final ForumAnswerRequest request){
+        final ForumAnswer answer = new ForumAnswer();
+        final ForumQuestion question = forumQuestionRepository.findById(request.getQuestionId()).orElse(null);
+        if(question == null){
+            throw new InvalidRequestException("Could not find ForumQuestion with id: " + request.getQuestionId());
+        }
+
+        answer.setCreatedDate(ZonedDateTime.now());
+        answer.setCreatorUsername(request.getAssociatedUsername());
+        answer.setText(request.getText());
+        answer.setQuestion(question);
+
+        return answer;
+    }
+    public ForumAnswer requestToForumAnswerUpdate(final ForumAnswerRequest request){
+        final ForumAnswer answer = forumAnswerRepository.findById(request.getId()).orElse(null);
+        if(answer == null){
+            throw new InvalidRequestException("Could not find ForumAnswer with id: " + request.getId());
+        }
+
+        answer.setModifiedDate(ZonedDateTime.now());
+        answer.setText(request.getText());
+
+        return answer;
+    }
+    public ForumAnswerComment requestToForumAnswerCommentCreate(final ForumCommentRequest request){
+        final ForumAnswerComment comment = new ForumAnswerComment();
+        final ForumAnswer answer = forumAnswerRepository.findById(request.getAnswerId()).orElse(null);
+        if(answer == null){
+            throw new InvalidRequestException("Could not find ForumAnswer with id: " + request.getAnswerId());
+        }
+
+        comment.setCreatedDate(ZonedDateTime.now());
+        comment.setCreatorUsername(request.getAssociatedUsername());
+        comment.setCommentText(request.getText());
+        comment.setAnswer(answer);
+
+        return comment;
+    }
+    public ForumComment requestToForumCommentUpdate(final ForumCommentRequest request){
+        final ForumComment comment = forumCommentRepository.findById(request.getId()).orElse(null);
+        if(comment == null){
+            throw new InvalidRequestException("Could not find Comment with id: " + request.getId());
+        }
+
+        comment.setModifiedDate(ZonedDateTime.now());
+        comment.setCommentText(request.getText());
+
+        return comment;
+    }
+    public ForumQuestionComment requestToForumQuestionCommentCreate(final ForumCommentRequest request){
+        final ForumQuestionComment comment = new ForumQuestionComment();
+        final ForumQuestion question = forumQuestionRepository.findById(request.getQuestionId()).orElse(null);
+        if(question == null){
+            throw new InvalidRequestException("Could not find ForumQuestion with id: " + request.getQuestionId());
+        }
+
+        comment.setCreatedDate(ZonedDateTime.now());
+        comment.setCreatorUsername(request.getAssociatedUsername());
+        comment.setCommentText(request.getText());
+        comment.setQuestion(question);
+
+        return comment;
+    }
+
 }

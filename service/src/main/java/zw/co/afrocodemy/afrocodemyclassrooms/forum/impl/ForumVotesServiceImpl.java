@@ -20,16 +20,18 @@ public class ForumVotesServiceImpl implements ForumVotesService {
 
     @Override
     public ResponseEntity<?> getQuestionVotes(ForumQuestion question) {
+        return ResponseEntity.ok(getIntQuestionVotes(question));
+    }
+
+    public Integer getIntQuestionVotes(ForumQuestion question) {
         Integer upVotes = forumQuestionUserVoteRepository.countAllByVoteTypeAndQuestion(ForumVoteType.UPVOTE, question);
         Integer downVotes = forumQuestionUserVoteRepository.countAllByVoteTypeAndQuestion(ForumVoteType.DOWN_VOTE, question);
-        return ResponseEntity.ok(upVotes - downVotes);
+        return upVotes - downVotes;
     }
 
     @Override
     public ResponseEntity<?> getAnswerVotes(ForumAnswer answer) {
-        Integer upVotes = forumAnswerUserVoteRepository.countAllByVoteTypeAndAnswer(ForumVoteType.UPVOTE, answer);
-        Integer downVotes = forumAnswerUserVoteRepository.countAllByVoteTypeAndAnswer(ForumVoteType.DOWN_VOTE, answer);
-        return ResponseEntity.ok(upVotes - downVotes);
+        return ResponseEntity.ok(getIntAnswerVotes(answer));
     }
 
     public Integer getIntAnswerVotes(ForumAnswer answer) {

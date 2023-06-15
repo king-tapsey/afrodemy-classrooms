@@ -6,7 +6,7 @@ import zw.co.afrocodemy.afrocodemyclassrooms.forum.ForumAnswer;
 import zw.co.afrocodemy.afrocodemyclassrooms.forum.ForumAnswerComment;
 import zw.co.afrocodemy.afrocodemyclassrooms.forum.ForumVoteType;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,5 +14,5 @@ public class ForumAnswerResponse {
     private ForumAnswer answer;
     private Integer answerVotes;
     private ForumVoteType userForumVoteType;
-    private Set<ForumAnswerComment> comments;
+    private List<ForumAnswerComment> comments;
 }
